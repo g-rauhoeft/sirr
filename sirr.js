@@ -1,10 +1,10 @@
-import {interval, ReplaySubject} from 'rxjs';
-import { bufferCount, buffer, filter } from 'rxjs/operators';
+import {ReplaySubject} from 'rxjs';
+import {bufferCount} from 'rxjs/operators';
 import _ from 'lodash';
 
 export default class Sirr {
     constructor(config){
-        this.state = {};
+        this.levels = {};
         this.config = config || {
             buffer: {
                 size: 10,
@@ -31,7 +31,7 @@ export default class Sirr {
 
     publish(message) {
       let path = _.split(message.target,".");
-      let currentLevel = this.state;
+      let currentLevel = this.levels;
       _.each(path, element => {
         this.initLevel(currentLevel, element);        
         currentLevel[element].subject.next(message);
@@ -42,7 +42,7 @@ export default class Sirr {
 
     subscribe(target, callback, buffer) {
         let path = _.split(target, ".");
-        let currentLevel = this.state;
+        let currentLevel = this.levels;
         let level = _.reduce(path, (result, element) => {
             this.initLevel(result, element);
             if (!element) {
