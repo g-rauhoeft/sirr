@@ -52,9 +52,13 @@ export default class Sirr {
         }, currentLevel);
         if (level) {
             if (buffer) {
-                if (!buffer.size && !buffer.every) {
-                    buffer = this.config.buffer;    
+                if (buffer.size === undefined) {
+                    buffer.size = this.config.buffer.size;
                 }
+                if(buffer.every === undefined) {
+                    buffer.every = this.config.buffer.every;
+                }
+                
                 return level.subject.pipe(bufferCount(buffer.size, buffer.every)).subscribe(callback);
             } else {
                 return level.subject.subscribe(callback);
