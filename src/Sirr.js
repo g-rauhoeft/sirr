@@ -65,3 +65,5 @@ export default class Sirr {
         }
     }
 }
+
+export var __useDefault = true;
