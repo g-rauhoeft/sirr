@@ -5,8 +5,23 @@ module.exports = {
     entry: './src/Sirr.js',
     output: {
         path: __dirname,
-        filename: 'sirr.js',
-        library: 'sirr',
-        libraryTarget: 'umd'
+        filename: 'sirr.js'
+    },
+    module: {
+        rules: [
+            {
+                test: /\.js/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env']
+                    }
+                }
+            }
+        ]
+    },
+    externals: {
+        lodash: 'lodash',
+        rxjs: 'rxjs'
     }
 };
