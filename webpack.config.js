@@ -5,7 +5,9 @@ module.exports = {
     entry: './src/Sirr.js',
     output: {
         path: __dirname,
-        filename: 'sirr.js'
+        filename: 'sirr.js',
+        library: 'sirr',
+        libraryTarget: 'umd'
     },
     module: {
         rules: [
