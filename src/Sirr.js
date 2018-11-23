@@ -5,7 +5,7 @@ import _ from 'lodash';
 export default class Sirr {
     constructor(config){
         this.levels = {};
-        if(!config) config = {};
+        if(!config) { config = {} };
         this.config = _.defaultsDeep(config, {
             buffer: {
                 size: 10,
@@ -14,7 +14,7 @@ export default class Sirr {
             replayBuffer: {
                 size: 20
             },
-            pathSeparator: "/"
+            pathSeparator: "."
         });
     }
 
