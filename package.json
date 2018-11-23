@@ -2,7 +2,6 @@
   "name": "sirr",
   "version": "0.0.1",
   "description": "",
-  "main": "sirr.js",
   "module": "sirr.js",
   "scripts": {
     "build": "webpack",

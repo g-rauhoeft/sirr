@@ -5,15 +5,17 @@ import _ from 'lodash';
 export default class Sirr {
     constructor(config){
         this.levels = {};
-        this.config = config || {
+        if(!config) config = {};
+        this.config = _.defaultsDeep(config, {
             buffer: {
                 size: 10,
                 every: 1
             },
             replayBuffer: {
                 size: 20
-            }
-        };
+            },
+            pathSeparator: "/"
+        });
     }
 
     initLevel(currentLevel, element) {
@@ -30,7 +32,7 @@ export default class Sirr {
     }
 
     publish(message) {
-      let path = _.split(message.target,".");
+      let path = _.split(message.target, this.config.pathSeparator);
       let currentLevel = this.levels;
       _.each(path, element => {
         this.initLevel(currentLevel, element);        
@@ -41,7 +43,7 @@ export default class Sirr {
     }
 
     subscribe(target, callback, buffer) {
-        let path = _.split(target, ".");
+        let path = _.split(target, this.config.pathSeparator);
         let currentLevel = this.levels;
         let level = _.reduce(path, (result, element) => {
             this.initLevel(result, element);
